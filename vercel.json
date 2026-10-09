@@ -1,0 +1,8 @@
+{
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "outputDirectory": "frontend/.vercel-output",
+  "rewrites": [
+    { "source": "/car-rental", "destination": "/car-rental/index.html" },
+    { "source": "/car-rental/(.*)", "destination": "/car-rental/index.html" }
+  ]
+}

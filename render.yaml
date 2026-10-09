@@ -1,0 +1,109 @@
+# Render Blueprint — deploys both backend APIs as web services. Push this
+# repo to GitHub, then in Render: New -> Blueprint -> select the repo.
+# Render reads this file automatically and creates both services below.
+#
+# NOTE ON THE DATABASES: Render's free instance type has an ephemeral
+# filesystem, so each SQLite file is wiped on every deploy/restart on the
+# free plan. That's fine for testing, but for a live site either:
+#   (a) upgrade the service to a paid plan and attach a persistent disk
+#       (uncomment the `disk:` block under the service you need it for), or
+#   (b) swap the SQLite layer for a hosted Postgres database (Render offers
+#       managed Postgres) — the query shapes map closely to standard SQL.
+services:
+  # ── Car Rental API (also serves the marketing site + car-rental app if
+  #    you deploy this service on its own, instead of via Vercel) ────────
+  - type: web
+    name: queen-captivated-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run seed && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: DB_FILE
+        value: ./data/queen_captivated.sqlite
+      - key: OTP_MODE
+        value: dev
+      - key: SMS_PROVIDER_API_KEY
+        value: ""
+      - key: SMS_PROVIDER_SENDER_ID
+        value: QNCAPT
+      - key: GOOGLE_MAPS_API_KEY
+        value: ""
+      - key: DEFAULT_COMMISSION_PERCENT
+        value: 20
+      - key: FRONTEND_ORIGIN
+        value: https://your-frontend.vercel.app
+    # disk:
+    #   name: queen-captivated-data
+    #   mountPath: /opt/render/project/src/backend/data
+    #   sizeGB: 1
+
+  # ── Homestay / Hotel booking API ────────────────────────────────────────
+  - type: web
+    name: queen-captivated-homestay-api
+    runtime: node
+    plan: free
+    rootDir: homestay-backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: executive@queencaptivated.in
+      - key: ADMIN_INITIAL_PASSWORD
+        generateValue: true
+      - key: ALLOWED_ORIGIN
+        value: https://your-frontend.vercel.app
+    # disk:
+    #   name: queen-captivated-homestay-data
+    #   mountPath: /opt/render/project/src/homestay-backend/data
+    #   sizeGB: 1
+
+  # ── AI Products API (admin-managed products for the marketing site) ─────
+  - type: web
+    name: queen-captivated-products-api
+    runtime: node
+    plan: free
+    rootDir: products-backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: executive@queencaptivated.in
+      - key: ADMIN_INITIAL_PASSWORD
+        generateValue: true
+      - key: DATABASE_PATH
+        value: ./data.sqlite
+      - key: ALLOWED_ORIGIN
+        value: https://your-frontend.vercel.app
+    # IMPORTANT: on the free plan the products database is wiped on every
+    # redeploy/restart. Before real use, upgrade this service and attach a
+    # persistent disk (uncomment below) and point DATABASE_PATH at it.
+    # disk:
+    #   name: queen-captivated-products-data
+    #   mountPath: /opt/render/project/src/products-backend/data
+    #   sizeGB: 1
+    # (then set DATABASE_PATH to /opt/render/project/src/products-backend/data/data.sqlite)

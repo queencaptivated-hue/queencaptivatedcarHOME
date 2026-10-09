@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Products — Queen Captivated</title>
+<meta name="description" content="AI products, agents and automation solutions built by Queen Captivated.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0a;--card:#121212;--secondary:#1f1f1f;--border:hsl(36,20%,20%);--fg:hsl(40,30%,90%);--muted:hsl(40,10%,55%);--primary:hsl(36,40%,62%);--primary-fg:#0a0a0a;--input:#262626;--ring:hsl(36,40%,62%);--gold-gradient:linear-gradient(135deg,hsl(36,40%,62%),hsl(38,50%,78%));--gold-subtle:linear-gradient(135deg,hsl(36,40%,62%,0.1),hsl(38,50%,78%,0.05));--shadow-gold:0 4px 30px -4px hsl(36,40%,62%,0.2);--font-display:'Playfair Display',Georgia,serif;--font-body:'Raleway','Helvetica Neue',sans-serif;--cyan:#7defff}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+main{flex:1}
+h1,h2,h3,h4{font-family:var(--font-display)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button,input,select,textarea{font-family:inherit}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+.text-gradient-gold{background:var(--gold-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,10,10,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;max-width:1200px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{height:48px;width:48px;border-radius:50%;object-fit:cover}
+.nav-logo span{font-family:var(--font-display);font-size:1.25rem;font-weight:700}
+.nav-links{display:flex;gap:4px}
+.nav-links a{padding:8px 12px;border-radius:6px;font-size:.875rem;font-weight:500;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--primary)}
+.hamburger{display:none;background:none;border:none;color:var(--fg);font-size:24px;cursor:pointer;padding:8px}
+.mobile-menu{display:none;background:rgba(10,10,10,.98);border-top:1px solid var(--border)}
+.mobile-menu a{display:block;padding:12px 24px;font-size:.875rem;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.05)}
+.mobile-menu a:hover{color:var(--primary)}
+@media(max-width:1023px){.nav-links{display:none}.hamburger{display:block}.mobile-menu.open{display:block}}
+.nav-links .nav-dd-item.current{background:var(--gold-subtle)}
+.btn-gold{display:inline-block;background:var(--gold-gradient);color:var(--primary-fg);font-family:var(--font-body);font-weight:600;padding:16px 32px;border-radius:6px;transition:opacity .2s,transform .2s;border:none;cursor:pointer;font-size:1rem}
+.btn-gold:hover{opacity:.92}
+.btn-gold[disabled]{opacity:.5;cursor:not-allowed}
+.btn-ghost{display:inline-block;border:1px solid var(--border);background:transparent;color:var(--fg);padding:10px 18px;border-radius:6px;cursor:pointer;font-weight:600;font-size:.85rem;transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
+.btn-danger:hover{border-color:#e5484d;color:#ff8a8e}
+.sm{padding:8px 14px;font-size:.8rem}
+.site-footer{background:var(--secondary);border-top:1px solid var(--border);padding:28px 0;margin-top:72px;color:var(--muted);font-size:.85rem}
+.site-footer .container{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center}
+.site-footer a:hover{color:var(--primary)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ===== NAV: PRODUCTS DROPDOWN ===== */
+.nav-dd{position:relative;display:flex;align-items:center}
+.nav-dd-btn{background:none;border:none;font-family:inherit;padding:8px 12px;border-radius:6px;font-size:.875rem;font-weight:500;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:color .2s}
+.nav-dd-btn svg{width:10px;height:10px;transition:transform .25s}
+.nav-dd:hover .nav-dd-btn,.nav-dd:focus-within .nav-dd-btn,.nav-dd.open .nav-dd-btn{color:var(--primary)}
+.nav-dd:hover .nav-dd-btn svg,.nav-dd.open .nav-dd-btn svg{transform:rotate(180deg)}
+.nav-dd-menu{position:absolute;top:100%;left:0;min-width:270px;margin-top:8px;padding:8px;background:rgba(14,14,18,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:12px;box-shadow:0 22px 50px -14px rgba(0,0,0,.75),0 0 0 1px hsl(36,40%,62%,.06);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .22s ease,transform .22s ease,visibility .22s;z-index:60}
+.nav-dd-menu::before{content:"";position:absolute;left:0;right:0;top:-10px;height:10px}
+.nav-dd:hover .nav-dd-menu,.nav-dd:focus-within .nav-dd-menu,.nav-dd.open .nav-dd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-links .nav-dd-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:8px;color:var(--fg);transition:background .2s}
+.nav-links .nav-dd-item:hover{background:var(--gold-subtle);color:var(--fg)}
+.nav-dd-ico{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:1rem;color:#0a0a0a;background:var(--gold-gradient);box-shadow:0 0 18px -4px hsl(36,40%,62%,.55)}
+.nav-dd-item strong{display:block;font-size:.875rem;font-weight:600;letter-spacing:.02em}
+.nav-dd-item small{display:block;font-size:.72rem;color:var(--muted);margin-top:2px;line-height:1.35}
+.mobile-menu .m-dd-btn{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;border-bottom:1px solid rgba(255,255,255,.05);padding:12px 24px;font-family:inherit;font-size:.875rem;color:var(--muted);text-align:left;cursor:pointer}
+.mobile-menu .m-dd-btn:hover,.mobile-menu .m-dd-btn[aria-expanded="true"]{color:var(--primary)}
+.mobile-menu .m-dd-btn span{transition:transform .25s}
+.mobile-menu .m-dd-btn[aria-expanded="true"] span{transform:rotate(180deg)}
+.mobile-menu .m-dd-sub{display:none;background:rgba(255,255,255,.025)}
+.mobile-menu .m-dd-sub.open{display:block}
+.mobile-menu .m-dd-sub a{padding-left:44px;color:var(--fg)}
+
+
+.page-hero{position:relative;padding:150px 0 48px;overflow:hidden;text-align:center}
+.page-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(800px 380px at 50% 0,rgba(39,200,255,.15),transparent 65%),radial-gradient(600px 360px at 88% 70%,hsl(36,40%,62%,.13),transparent 60%)}
+.page-hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(88,220,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(88,220,255,.045) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 50% 0,#000 10%,transparent 70%);mask-image:radial-gradient(ellipse at 50% 0,#000 10%,transparent 70%)}
+.page-hero .container{position:relative;z-index:1}
+.eyebrow{display:inline-block;font-size:.8rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--primary);padding:6px 14px;border:1px solid hsl(36,40%,62%,.35);border-radius:999px;background:hsl(36,40%,62%,.08)}
+.page-hero h1{font-size:clamp(2rem,5vw,3.4rem);margin:18px 0 14px;line-height:1.1}
+.page-hero p{max-width:640px;margin:0 auto;color:var(--muted)}
+.admin-bar{display:none;justify-content:center;gap:10px;margin-top:22px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 32px}
+.chip{border:1px solid var(--border);background:transparent;color:var(--muted);padding:7px 16px;border-radius:999px;font-size:.8rem;font-weight:600;letter-spacing:.04em;cursor:pointer;transition:all .2s}
+.chip:hover,.chip.on{border-color:var(--primary);color:var(--primary);background:hsl(36,40%,62%,.08)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:24px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);border-color:hsl(36,40%,62%,.55);box-shadow:0 22px 50px -18px rgba(0,0,0,.8),var(--shadow-gold)}
+.card.featured{border-color:hsl(36,40%,62%,.5)}
+.media{position:relative;aspect-ratio:16/10;overflow:hidden;background:radial-gradient(circle at 70% 30%,rgba(39,200,255,.18),transparent 60%),linear-gradient(135deg,#0b1424,#101a2e 55%,#161208)}
+.media img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .media img{transform:scale(1.05)}
+.media .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:2.6rem;color:hsl(36,40%,62%,.55)}
+.badge{position:absolute;top:12px;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.badge.status{left:12px}.badge.feat{right:12px;background:var(--gold-gradient);color:var(--primary-fg)}
+.st-available{background:rgba(70,200,120,.18);color:#7be8a4;border:1px solid rgba(110,230,160,.4)}
+.st-beta{background:rgba(125,239,255,.14);color:#9fe9ff;border:1px solid rgba(125,239,255,.4)}
+.st-soon{background:rgba(232,184,106,.14);color:#f0cf8f;border:1px solid rgba(232,184,106,.4)}
+.body{padding:0 22px 22px;display:flex;flex-direction:column;flex:1}
+.head{display:flex;align-items:flex-end;gap:14px;margin-top:-26px;position:relative;z-index:2;margin-bottom:12px}
+.icon{flex:none;width:56px;height:56px;border-radius:14px;background:var(--secondary);border:1px solid var(--border);display:grid;place-items:center;overflow:hidden;font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:var(--primary);box-shadow:0 8px 20px -6px rgba(0,0,0,.7)}
+.icon img{width:100%;height:100%;object-fit:cover}
+.cat{display:block;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--primary)}
+.card h3{font-size:1.25rem;line-height:1.25}
+.short{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+.feat-list{list-style:none;margin:0 0 18px;display:grid;gap:6px}
+.feat-list li{font-size:.82rem;color:hsl(40,20%,80%);padding-left:22px;position:relative}
+.feat-list li::before{content:"✓";position:absolute;left:0;color:var(--primary);font-weight:700}
+.card .btn-gold{margin-top:auto;width:100%;text-align:center;padding:12px 20px;font-size:.9rem}
+.state{text-align:center;color:var(--muted);padding:56px 16px;grid-column:1/-1}
+.state h3{color:var(--fg);font-size:1.3rem;margin-bottom:8px}
+.state .btn-ghost{margin-top:16px}
+.skel{height:400px;border-radius:14px;background:linear-gradient(90deg,var(--card),#1b1b1b,var(--card));background-size:200% 100%;animation:sk 1.4s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.modal-back{position:fixed;inset:0;background:rgba(0,0,0,.74);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px;z-index:100}
+.modal-back.open{display:flex}
+.modal{position:relative;background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:680px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 30px 80px -20px #000}
+.modal .x{position:absolute;top:12px;right:12px;z-index:5;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:rgba(10,10,10,.7);color:var(--fg);font-size:1.1rem;cursor:pointer}
+.modal .x:hover{border-color:var(--primary);color:var(--primary)}
+.modal .mbody{padding:0 28px 28px}
+.modal h2{font-size:1.7rem;line-height:1.2}
+.modal .desc{white-space:pre-line;color:hsl(40,15%,75%);margin:14px 0 18px}
+.modal h4{font-size:1rem;margin:4px 0 10px;color:var(--primary)}
+.modal .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.page-hero{padding-top:130px}.modal .mbody{padding:0 18px 22px}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+<div class="nav-inner">
+<a href="index.html" class="nav-logo"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUEBAQEAwUEBAQGBQUGCA0ICAcHCBALDAkNExAUExIQEhIUFx0ZFBYcFhISGiMaHB4fISEhFBkkJyQgJh0gISD/2wBDAQUGBggHCA8ICA8gFRIVICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICD/wAARCABgAGADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD45ooooAKKK0/D2lDXfFOk6I05txqF3FamULuKb3C7sd8Z6Um7K7BamZSqrO6oilnY4VVGST6AV6Pqln8KfDOsXmmy2vibX7qzmeB/MmhsoWZGKkjaJGxkH0qr/wALLm0pDH4K8N6V4VOMfaraMz3n4TylmX/gG2s+dv4UVZLdnHaro+raHffYda0260662h/JuomjfaRkHB7EVSrttP8Aib4lgtP7P1lrbxNp24t9k1uL7Uqk8ko7HehPqrCp/wC1fhbqrD7d4R1bQ5WPLaRqAlj/AAjnUn/x+jmkviX3BZdGcFQTmuu8ceGNJ8Pf2FeaHqF3e2Gs2H26L7ZCsUsQ8x49rBWIPKE5965GrjJSV0JqzsFBOaKKoQUUUUAFd38IbJLr4t6FcT8Wumytqdwx6LHAplYn/vkD8a4SvRPh+TaeBfiNq0Q/0mPSobNT3VJ7hFkP/fIx+NZVvga76ffoXD4ileWUdvoa+PdasxeS65fzixtJSRG2whpZZNpBIDOFCgjJyTwMHsPACeCPihct4G1vw1YeHtfuo2/svV9LDxKZQpIjljLFWBx1GPTrzVjRNJt/ip8DNO8LaJPCvjDwnPcTxWMrhDe2srbmKE8bgxHHt7iuS8L6Tq/w98c6f4l8W6bc6PHo832pYLpfKlupE5SONTydzYBboBkk+vI2pxlG9pK9v0NUrNPo/wCmVP8AhFk8N+EJfE3iG0W5nk1GXTLGyZiI3ki/10rkEEqpKqFBGSTngYLbXxP4cvfDOs6brnhTTYr9rfdpuoWMLQyRTB1+VwrbWUru5I4OK9C0m0Hxh+Dg8O2F5bR+NNE1O51CKymlEf26K4bc+wnjcG/kPWvM9Z8AeIPDNvLL4qjh0SRVPlW1xMrTzt2CxoScf7Rwvv2q4TjJuNR+8n/w1hNNax2NvxWq6p8GPA+sxfMdOlu9HuD/AHTv8+L81kb8q85r0bwv/pvwS8f2Mw/dWTWGoQk/wy+cYjj3KuR+Fec1vS05o9n+ev6mcujCiiitiD0hvgV8Wl03+0D4KvDHt3eWHQygf9c9278MZrz26tLqxu5LS9tpbW5iO14pkKOh9CDyK9r8A/H2Tw20tz4nsNV8Q3pk81H/ALS8uINgKCYtuCQqgDJIAHAFd/P4u+GH7QkP9ia7bQeGPEzArp93I2ZN/wDCm/aFdT/dJB9Oa8/29enL97C8e6/yOn2cJL3Xr5nzd4P8MTeMPEkWhW95HazzKTGXUtvbgBQBySc9snrwa6DwTf2nhXxtrPhbxVIsOl6nFNompSodwtzv+WZfXZIit9Aa99tfCMPwd/Z21O61W9/sPxDdSTJc3dqN11OwZlhhhf8AgU4Vi3YEng9Pk2CDUNY1NYYUlvr+6c4UEs8znk+5J/M1dOqsRzW+Faf8EmUHTt3NTxFouueDtcv9A1Bnt5AQH8pz5dwmdyOpHDIeGU9PyrrbT4oWeq+F4/D/AMRvDn/CVpZLjTr8XJgvLf8A6ZtLgl4/Y8j8sdW2n6PaaXpHgb4keIbQKbaN7ZrmOWHUtAZxkxPlCjRZ52Mw4II25xXEfED4TeKfh9Os99Ct9pE2Db6paZeCVTyOf4SfQ9exNNShUtGe/Tpf0FaUdY7HEXdyLnUJbuK3isw7lligBVIh2C5OcD3OahAkml5LO7HGTkk1r+G/C2v+LdZj0jw9pk9/eSfwRrwo/vMeir7kgV7D/wAIvoPwm1K306fxPoLeOpNu66vDJLbaMW7hEjbfKAchnwFzkL3rWdWMHyrV9iIwctehyXiVF8C/DSLwPL8viHWpo9R1ePvaQoD9nt29HO4yMO2VFc5q/gi+0TwNo/im+u4Qmr4e3twPmMZLANnvyhyBnGVyecU3x14b1nw74qvY9XF9N50ztFfXsZje9GeZgCSSGJyDk8Gvdv2cZtN8X+H9a8C+ItWkv4HjI/sm9HmRiHA2yW7HmN1YnIHqCMEVhOo6NL2q16s0jHnlybHzBXd6B8H/AIleJtPGoaR4SvHtGGVmm2wK49VLkZH0r2Lw54K8EfBPTU8WfEmS2vvEUzs2m6RKN7RRhiFkKAHLnAOWwFz61F4p/ac0zxFpEtsnhPUrK7CskVxbap5QwRghhsIZSOqkGpliak3+4jdd+n6FKlGK/ePXsfNFAJVgykgg5BHaiivQOY+prDWNQ+N37OTaLJ5+peJfDd3BLdW0TATX9upIBUn+IqT/AMCT3FePfE7wzpWkXdvfaD4a1Xw/asSk9nfOZmtzn92zuOEZwGOwkkbc9DVL4VeLdS8G/EbT9T02eRDKTbyxJE0onVv4Ci8kE46ZIPIBxg/UHjnTfi/qejgjQNP8U6f5bXFgrxrDe2FwV+SR4nPlSlc4ztzyThTXkSbw1WytyvXe3r5HYv3sLvdHjmq+JNRtbDUtIsvh1Z3Wr38KWOpauZWc3sSwooWBSA0ZIVCwGTuyOO23p3xX8UaP4I0zw3r2mWMlut7DB9jDi5+0WrOQ8bqCwSNYyqKCdxYg9jWh4LvfiHoWm6tpOv8AwoE2p6kFjGs6yVihgwm0tI0oIZc5kIBGWZvWrvifxH8P9F1uOGbx3bSadpjq9rpOlb5lurpiN15dOoKuVOGEeTnyxk5JBhuLfJy39Nf87DV0r3sVh8RF+HvitNF8E+GbHSrI2Uk7WjynZdz/AGlk/eTnkfu4mCbjtUtiuA0nxDrtlb6vp3iX4eQeIdP1hvMvAZs3E0qqQssMgLfOM8lQQTnIHIrS8D+K9Bs9H0+K88frpPifT5ZJI7t0lls72F5CTaXAC8qSXbcfu+Ye/T0zxBqktr4f1bRvBnw/0vxfpOrW6fYbnSbmO4ewYxhSjhQXOxhuRhjjA4xVN+zly8u/W9vxBe8r3PnfVIx4p+Kqy6vH9ksrkW8syWe5xaW5iTYu4jjClFLkYBJNe7/DbRNK8FeINe+Jw8Lan4V8M6boYQ2+o3Im+1XRIJML/wASHaAD3LDHXAy/h14V+NdtrTarH4KtLDUDITBqWskxC0ibd5kexGDyBic7WyoxwBnNZP7Q3i/xEbSz8D6zf3TSwSCeXFn9niujz8+ehUEgKq7gOSzFuA5ydWSoQatbXXp/XcUVyL2j3PEfFfifVfGXiq+8R61OZbu8kLYz8sa/wovoqjgCsWiivWSUVZHI3fVhRRRTEem/AtNFT4sW2qa/fvZWWkWtxqLPG5RiY0Jxkc9MnA64x3rf+IP7R3jXxVfz2/h28l8OaNkiOO2OJ5B6vIOQT6LgD3rxaKaWBy8MjRsVKkqcZBGCPoQSKZXNLDwnU9pNX7GqqSUeVFi+1LUdRk8zUNQubx853TzNIf1JqnTmptdNrGQVJDNLbzCWCV4pB0dGKkfiKjpR1oA9C8KfGP4i+D7mN9N8SXNzbKfms75zPCw9MNyPqpBr0b4yeN9D+KHwg0Hxjb+dZavaah9gutPaUsiExliyj0OBhhg9j0FfPVP86Y24tvNbyQ5kEeeN2MZx64Fc0sPBzVRKzRqqklFxewyiiiukyCiiigAooooASk206igBu33pQMUtFABRRRQAUUUUAf/Z" alt="Queen Captivated"><span class="text-gradient-gold">Queen Captivated</span></a>
+<div class="nav-links">
+<a href="index.html#home">Home</a>
+<div class="nav-dd"><button type="button" class="nav-dd-btn" aria-haspopup="true" aria-expanded="false">Products <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 3.5L5 7l3.5-3.5"/></svg></button><div class="nav-dd-menu" role="menu"><a class="nav-dd-item current" role="menuitem" href="ai-products.html"><span class="nav-dd-ico" aria-hidden="true">✦</span><span><strong>AI Product</strong><small>Intelligent products, agents &amp; automation</small></span></a></div></div>
+<a href="index.html#about">About</a><a href="index.html#services">Services</a><a href="index.html#contact">Contact</a>
+</div>
+<button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html#home">Home</a>
+<button type="button" class="m-dd-btn" aria-expanded="false" onclick="toggleMobileProducts(this)">Products <span aria-hidden="true">▾</span></button>
+<div class="m-dd-sub"><a href="ai-products.html">AI Product</a></div>
+<a href="index.html#about">About</a><a href="index.html#services">Services</a><a href="index.html#contact">Contact</a>
+</div>
+</nav>
+<main>
+<section class="page-hero">
+<div class="container">
+<span class="eyebrow">AI · Innovation · Product Development</span>
+<h1>AI <span class="text-gradient-gold">Products</span></h1>
+<p>Intelligent products, agents and automation solutions built by Queen Captivated — from idea to a working digital experience.</p>
+<div class="admin-bar" id="adminBar"><a class="btn-ghost sm" href="ai-products-admin.html">⚙ Manage products</a></div>
+</div>
+</section>
+<section class="container" aria-live="polite">
+<div class="filters" id="filters" role="group" aria-label="Filter by category"></div>
+<div class="grid" id="grid"></div>
+</section>
+</main>
+<footer class="site-footer"><div class="container"><span>© Queen Captivated</span><span><a href="index.html">← Back to home</a> &nbsp;·&nbsp; <a href="ai-products-admin.html" rel="nofollow">Admin</a></span></div></footer>
+
+<div class="modal-back" id="modalBack" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+<div class="modal" id="modal"><button class="x" id="mClose" aria-label="Close">✕</button><div id="mContent"></div></div>
+</div>
+
+<script>
+/* Set at deploy time from the PRODUCTS_API_URL environment variable (see scripts/*-build.sh). */
+window.QC_PRODUCTS_API = "https://your-products-backend.onrender.com";
+</script>
+<script>
+function toggleMenu(){var m=document.getElementById('mobileMenu');var o=m.classList.toggle('open');document.querySelector('.hamburger').textContent=o?'✕':'☰'}
+function toggleMobileProducts(b){var s=b.nextElementSibling;var o=s.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false')}
+(function(){
+  var dd=document.querySelector('.nav-dd');if(!dd)return;
+  var btn=dd.querySelector('.nav-dd-btn');
+  function setOpen(o){dd.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false')}
+  btn.addEventListener('click',function(e){e.stopPropagation();setOpen(!dd.classList.contains('open'))});
+  dd.addEventListener('mouseleave',function(){setOpen(false)});
+  document.addEventListener('click',function(e){if(!dd.contains(e.target))setOpen(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false)});
+})();
+// Shared helpers
+var QC_API=(window.QC_PRODUCTS_API||'').replace(/\/+$/,'');
+if(/your-products-backend/.test(QC_API)&&/^(localhost|127\.0\.0\.1)$/.test(location.hostname))QC_API='http://localhost:4000';
+var QC_API_UNSET=/your-products-backend/.test(QC_API);
+function qcEl(tag,attrs,kids){var e=document.createElement(tag);for(var k in (attrs||{})){if(k==='class')e.className=attrs[k];else if(k==='text')e.textContent=attrs[k];else e.setAttribute(k,attrs[k])}(kids||[]).forEach(function(c){if(c)e.appendChild(typeof c==='string'?document.createTextNode(c):c)});return e}
+function qcSafeLink(u){return /^(https?:\/\/|\/)/i.test(u||'')?u:''}
+function qcSafeImg(u){return /^(https?:\/\/|\/|data:image\/(png|jpe?g|webp|gif|svg\+xml);base64,)/i.test(u||'')?u:''}
+
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var all=[],filter='All';
+  var statusClass={'Available':'st-available','Beta':'st-beta','Coming Soon':'st-soon'};
+
+  function badge(p){return qcEl('span',{class:'badge status '+(statusClass[p.status]||'st-soon'),text:p.status||'Coming Soon'})}
+  function media(p){
+    var m=qcEl('div',{class:'media'});
+    var src=qcSafeImg(p.imageUrl);
+    if(src){var img=qcEl('img',{src:src,alt:p.name+' preview',loading:'lazy'});img.onerror=function(){img.remove();m.insertBefore(qcEl('div',{class:'ph','aria-hidden':'true',text:'✦'}),m.firstChild)};m.appendChild(img)}
+    else m.appendChild(qcEl('div',{class:'ph','aria-hidden':'true',text:'✦'}));
+    m.appendChild(badge(p));
+    if(p.featured)m.appendChild(qcEl('span',{class:'badge feat',text:'★ Featured'}));
+    return m;
+  }
+  function icon(p){
+    var i=qcEl('div',{class:'icon','aria-hidden':'true'});
+    var src=qcSafeImg(p.iconUrl);
+    if(src){var im=qcEl('img',{src:src,alt:''});im.onerror=function(){im.remove();i.textContent=(p.name||'?').charAt(0).toUpperCase()};i.appendChild(im)}
+    else i.textContent=(p.name||'?').charAt(0).toUpperCase();
+    return i;
+  }
+
+  function card(p){
+    var feats=(p.features||[]).slice(0,3).map(function(f){return qcEl('li',{text:f})});
+    var btn=qcEl('button',{class:'btn-gold',type:'button',text:(p.ctaText||'Learn More')+' →'});
+    btn.addEventListener('click',function(){openModal(p)});
+    return qcEl('article',{class:'card'+(p.featured?' featured':'')},[
+      media(p),
+      qcEl('div',{class:'body'},[
+        qcEl('div',{class:'head'},[icon(p),qcEl('div',{},[p.category?qcEl('span',{class:'cat',text:p.category}):null,qcEl('h3',{text:p.name})])]),
+        p.shortDescription?qcEl('p',{class:'short',text:p.shortDescription}):null,
+        feats.length?qcEl('ul',{class:'feat-list'},feats):null,
+        btn
+      ])
+    ]);
+  }
+
+  function render(){
+    var grid=$('grid');grid.innerHTML='';
+    var list=all.filter(function(p){return filter==='All'||p.category===filter});
+    if(!list.length){grid.appendChild(qcEl('div',{class:'state'},[qcEl('h3',{text:all.length?'No products in this category':'New AI products are on the way'}),qcEl('p',{text:all.length?'Try another category.':'Check back soon — we are building something great.'})]));return}
+    list.forEach(function(p){grid.appendChild(card(p))});
+  }
+
+  function buildFilters(){
+    var f=$('filters');f.innerHTML='';
+    var cats=[];all.forEach(function(p){if(p.category&&cats.indexOf(p.category)<0)cats.push(p.category)});
+    if(cats.length<2){return}
+    ['All'].concat(cats).forEach(function(c){
+      var b=qcEl('button',{class:'chip'+(c===filter?' on':''),type:'button',text:c});
+      b.addEventListener('click',function(){filter=c;buildFilters();render()});
+      f.appendChild(b);
+    });
+  }
+
+  function openModal(p){
+    var c=$('mContent');c.innerHTML='';
+    var m=media(p);m.style.borderRadius='16px 16px 0 0';
+    var body=qcEl('div',{class:'mbody'});
+    body.appendChild(qcEl('div',{class:'head'},[icon(p),qcEl('div',{},[p.category?qcEl('span',{class:'cat',text:p.category}):null,qcEl('h2',{id:'mTitle',text:p.name})])]));
+    var d=p.fullDescription||p.shortDescription;
+    if(d)body.appendChild(qcEl('p',{class:'desc',text:d}));
+    if((p.features||[]).length){body.appendChild(qcEl('h4',{text:'Key features'}));body.appendChild(qcEl('ul',{class:'feat-list'},p.features.map(function(f){return qcEl('li',{text:f})})))}
+    var actions=qcEl('div',{class:'actions'});
+    var href=qcSafeLink(p.productUrl);
+    if(href)actions.appendChild(qcEl('a',{class:'btn-gold',href:href,target:'_blank',rel:'noopener noreferrer',text:(p.ctaText||'Visit product')+' ↗'}));
+    var close=qcEl('button',{class:'btn-ghost',type:'button',text:'Close'});close.addEventListener('click',closeModal);actions.appendChild(close);
+    body.appendChild(actions);
+    c.appendChild(m);c.appendChild(body);
+    $('modalBack').classList.add('open');document.body.style.overflow='hidden';$('mClose').focus();
+  }
+  function closeModal(){$('modalBack').classList.remove('open');document.body.style.overflow=''}
+  $('mClose').addEventListener('click',closeModal);
+  $('modalBack').addEventListener('click',function(e){if(e.target===$('modalBack'))closeModal()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
+
+  function showError(msg){
+    var grid=$('grid');grid.innerHTML='';
+    var retry=qcEl('button',{class:'btn-ghost',type:'button',text:'Try again'});retry.addEventListener('click',load);
+    grid.appendChild(qcEl('div',{class:'state'},[qcEl('h3',{text:"We couldn't load the products"}),qcEl('p',{text:msg}),QC_API_UNSET?null:retry]));
+  }
+  function load(){
+    var grid=$('grid');grid.innerHTML='';
+    for(var i=0;i<3;i++)grid.appendChild(qcEl('div',{class:'skel','aria-hidden':'true'}));
+    if(QC_API_UNSET){showError('The Products API address has not been configured yet. Set PRODUCTS_API_URL when deploying (see the README).');return}
+    fetch(QC_API+'/api/products').then(function(r){if(!r.ok)throw new Error('The server answered with an error ('+r.status+').');return r.json()})
+    .then(function(list){all=Array.isArray(list)?list:[];buildFilters();render()})
+    .catch(function(e){showError(e&&/answered/.test(e.message)?e.message:'The server could not be reached. If it has been idle it may need up to a minute to wake up — please try again.')});
+  }
+  try{if(localStorage.getItem('qc_products_token'))$('adminBar').style.display='flex'}catch(e){}
+  load();
+})();
+</script>
+</body>
+</html>

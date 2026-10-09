@@ -1,0 +1,13 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - bash scripts/amplify-build.sh
+  artifacts:
+    baseDirectory: frontend/.amplify-output
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - frontend/car-rental/node_modules/**/*

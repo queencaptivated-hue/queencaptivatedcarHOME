@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+frontend/.vercel-output/
+frontend/.amplify-output/
+.vercel/
+.amplify/
+
+# Environment secrets
+.env
+.env.local
+.env.production.local
+
+# Database
+backend/data/*.sqlite
+backend/data/*.sqlite-shm
+backend/data/*.sqlite-wal
+products-backend/data.sqlite
+products-backend/data.sqlite-journal
+products-backend/data.sqlite-wal
+products-backend/data.sqlite-shm
+homestay-backend/data.sqlite
+homestay-backend/data.sqlite-journal
+homestay-backend/data.sqlite-wal
+homestay-backend/data.sqlite-shm
+
+# Homestay uploaded files (photos, QR codes) — keep the folders via .gitkeep
+homestay-backend/uploads/rooms/*
+homestay-backend/uploads/qr/*
+!homestay-backend/uploads/rooms/.gitkeep
+!homestay-backend/uploads/qr/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor/OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
