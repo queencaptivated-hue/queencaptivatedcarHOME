@@ -5,86 +5,50 @@ const bcrypt = require('bcryptjs');
 const DB_PATH = process.env.DATABASE_PATH || path.join(__dirname, '..', '..', 'data.sqlite');
 const db = new Database(DB_PATH);
 db.pragma('journal_mode = WAL');
-db.pragma('foreign_keys = ON');
 
 db.exec(`
-CREATE TABLE IF NOT EXISTS customers (
+CREATE TABLE IF NOT EXISTS admins (
   id TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
   email TEXT NOT NULL UNIQUE,
-  phone TEXT NOT NULL,
   password_hash TEXT NOT NULL,
   created_at INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS landlords (
+CREATE TABLE IF NOT EXISTS products (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
-  email TEXT NOT NULL UNIQUE,
-  phone TEXT NOT NULL,
-  password_hash TEXT NOT NULL,
-  wallet_balance INTEGER NOT NULL DEFAULT 0,
-  status TEXT NOT NULL DEFAULT 'active',
-  created_at INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS rooms (
-  id TEXT PRIMARY KEY,
-  landlord_id TEXT NOT NULL REFERENCES landlords(id) ON DELETE CASCADE,
-  title TEXT NOT NULL,
-  location TEXT NOT NULL,
-  description TEXT NOT NULL,
-  price INTEGER NOT NULL,
-  max_guests INTEGER NOT NULL DEFAULT 2,
-  active INTEGER NOT NULL DEFAULT 1,
-  created_at INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS room_photos (
-  id TEXT PRIMARY KEY,
-  room_id TEXT NOT NULL REFERENCES rooms(id) ON DELETE CASCADE,
-  file_path TEXT NOT NULL,
-  sort_order INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE IF NOT EXISTS bookings (
-  id TEXT PRIMARY KEY,
-  room_id TEXT NOT NULL REFERENCES rooms(id),
-  customer_id TEXT NOT NULL REFERENCES customers(id),
-  checkin TEXT NOT NULL,
-  checkout TEXT NOT NULL,
-  guests INTEGER NOT NULL,
-  total INTEGER NOT NULL,
-  commission INTEGER NOT NULL,
-  status TEXT NOT NULL DEFAULT 'Confirmed',
-  created_at INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS settlements (
-  id TEXT PRIMARY KEY,
-  landlord_id TEXT NOT NULL REFERENCES landlords(id) ON DELETE CASCADE,
-  amount INTEGER NOT NULL,
-  note TEXT,
-  status TEXT NOT NULL DEFAULT 'Pending',
+  short_description TEXT NOT NULL DEFAULT '',
+  full_description TEXT NOT NULL DEFAULT '',
+  image_url TEXT NOT NULL DEFAULT '',
+  icon_url TEXT NOT NULL DEFAULT '',
+  product_url TEXT NOT NULL DEFAULT '',
+  category TEXT NOT NULL DEFAULT '',
+  status TEXT NOT NULL DEFAULT 'Coming Soon',
+  cta_text TEXT NOT NULL DEFAULT 'Learn More',
+  features TEXT NOT NULL DEFAULT '',
+  published INTEGER NOT NULL DEFAULT 1,
+  featured INTEGER NOT NULL DEFAULT 0,
+  sort_order INTEGER NOT NULL DEFAULT 0,
   created_at INTEGER NOT NULL,
-  decided_at INTEGER
-);
-
-CREATE TABLE IF NOT EXISTS settings (
-  id INTEGER PRIMARY KEY CHECK (id = 1),
-  commission_rate INTEGER NOT NULL DEFAULT 20,
-  qr_image_path TEXT,
-  admin_password_hash TEXT NOT NULL
+  updated_at INTEGER NOT NULL
 );
 `);
 
-// Seed the singleton settings row on first boot.
-const existingSettings = db.prepare('SELECT * FROM settings WHERE id = 1').get();
-if (!existingSettings) {
-  const initialPassword = process.env.ADMIN_INITIAL_PASSWORD || 'admin123';
+// Safe migration for databases created before the `features` column existed.
+const cols = db.prepare("PRAGMA table_info(products)").all().map((c) => c.name);
+if (!cols.includes('features')) {
+  db.exec("ALTER TABLE products ADD COLUMN features TEXT NOT NULL DEFAULT ''");
+}
+
+// One-time seed: a default admin account, same pattern as the homestay API.
+const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || 'executive@queencaptivated.in').toLowerCase();
+const existing = db.prepare('SELECT id FROM admins WHERE email = ?').get(ADMIN_EMAIL);
+if (!existing) {
+  const initialPassword = process.env.ADMIN_INITIAL_PASSWORD || 'change-this-immediately';
   const hash = bcrypt.hashSync(initialPassword, 10);
-  db.prepare('INSERT INTO settings (id, commission_rate, qr_image_path, admin_password_hash) VALUES (1, 20, NULL, ?)').run(hash);
-  console.log(`[db] Seeded settings row. Initial admin password: "${initialPassword}" — change this immediately after first login.`);
+  db.prepare('INSERT INTO admins (id, email, password_hash, created_at) VALUES (?,?,?,?)')
+    .run('admin_products_1', ADMIN_EMAIL, hash, Date.now());
+  console.log(`[db] Seeded products admin (${ADMIN_EMAIL}). Initial password: "${initialPassword}" — change this immediately after first login.`);
 }
 
 module.exports = db;

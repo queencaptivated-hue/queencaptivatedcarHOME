@@ -23,13 +23,12 @@ function attachUser(req, _res, next) {
   next();
 }
 
-// Requires a valid token, optionally restricted to a specific role.
-function requireAuth(role) {
-  return (req, res, next) => {
-    if (!req.user) return res.status(401).json({ error: 'Not authenticated. Please log in.' });
-    if (role && req.user.role !== role) return res.status(403).json({ error: 'You do not have access to this resource.' });
-    next();
-  };
+// Requires a valid admin token.
+function requireAdmin(req, res, next) {
+  if (!req.user || req.user.role !== 'admin') {
+    return res.status(401).json({ error: 'Admin login required.' });
+  }
+  next();
 }
 
-module.exports = { signToken, attachUser, requireAuth };
+module.exports = { signToken, attachUser, requireAdmin };
