@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { @apply bg-obsidian text-ivory font-body antialiased; }
+
+::selection { background: #D4AF6A; color: #0B0B0D; }
+
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D4AF6A, transparent);
+}
+
+.card {
+  @apply bg-panel border border-hairline rounded-xl;
+}
+
+.btn-gold {
+  @apply bg-gold text-obsidian font-semibold rounded-lg px-5 py-2.5 hover:bg-gold-soft transition-colors duration-200;
+}
+
+.btn-ghost {
+  @apply border border-hairline text-ivory rounded-lg px-5 py-2.5 hover:border-gold hover:text-gold transition-colors duration-200;
+}
+
+.input-field {
+  @apply w-full bg-charcoal border border-hairline rounded-lg px-4 py-2.5 text-ivory placeholder:text-muted focus:outline-none focus:border-gold transition-colors duration-200;
+}
+
+.label-eyebrow {
+  @apply text-xs uppercase tracking-widest2 text-gold-deep font-semibold;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0B0B0D; }
+::-webkit-scrollbar-thumb { background: #2C2C31; border-radius: 4px; }
